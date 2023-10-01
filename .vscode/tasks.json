@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "dotnet",
+      "task": "watch API",
+      "file": "c:\\Users\\Alex\\Desktop\\DatingApp\\API\\API.csproj",
+      "problemMatcher": ["$msCompile"],
+      "label": "dotnet: watch API"
+    }
+  ]
+}
