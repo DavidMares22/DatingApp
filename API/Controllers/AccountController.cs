@@ -27,7 +27,7 @@ public partial class AccountController : BaseApiController
 
         var user = new AppUser
         {
-            Username = registerDto.Username.ToLower(),
+            UserName = registerDto.Username.ToLower(),
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
             PasswordSalt = hmac.Key
         };
@@ -37,21 +37,21 @@ public partial class AccountController : BaseApiController
 
         return new UserDto
         {
-            Username = user.Username,
+            UserName = user.UserName,
             Token = _tokenService.CreateToken(user)
         };
     }
 
     private async Task<bool> UserExists(string Username)
     {
-        var user = await _context.Users.AnyAsync(x => x.Username.ToLower() == Username.ToLower());
+        var user = await _context.Users.AnyAsync(x => x.UserName.ToLower() == Username.ToLower());
         return user;
     }
 
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == loginDto.Username);
+        var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
         if (user == null) return Unauthorized("Invalid username");
 
@@ -66,7 +66,7 @@ public partial class AccountController : BaseApiController
 
         return new UserDto
         {
-            Username = user.Username,
+            UserName = user.UserName,
             Token = _tokenService.CreateToken(user)
         };
     }
