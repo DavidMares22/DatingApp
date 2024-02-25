@@ -1,16 +1,15 @@
-using API.Extensions;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using API.Helpers;
 
 namespace API.Controllers;
- 
+
 [Authorize]
 public class UsersController : BaseApiController
 {
@@ -65,7 +64,7 @@ public class UsersController : BaseApiController
         return BadRequest("Failed to update user");
     }
 
-     [HttpPost("add-photo")]
+    [HttpPost("add-photo")]
     public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
     {
         var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
